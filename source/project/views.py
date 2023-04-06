@@ -44,4 +44,11 @@ class IssueList(ListAPIView, CreateAPIView):
 
     serializer_class = IssueSerializer
 
-   
+
+class IssueDetail(RetrieveAPIView, DestroyAPIView, UpdateAPIView):
+    
+    def get_queryset(self):
+        queryset = Issue.objects.filter(pk=self.kwargs['pk'])
+        return queryset
+
+    serializer_class = IssueSerializer
