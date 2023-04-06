@@ -35,7 +35,7 @@ class ContributorDelete(ListAPIView, DestroyAPIView):
     serializer_class = ContributorSerializer
 
 
-class IssueList(ListAPIView):
+class IssueList(ListAPIView, CreateAPIView):
     
     def get_queryset(self):
         project = get_object_or_404(Project, id=self.kwargs['project_id'])
