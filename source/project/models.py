@@ -29,6 +29,9 @@ class Contributor(models.Model):
     class Meta:
         ordering = ['id']
         unique_together = ['user_id', 'project_id']
+    
+    def __str__(self):
+        return (f"{self.user_id} contribute to the project : {self.project_id}")
 
 
 class Issue(models.Model):

@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from project.models import Project
+from project.models import Project, Contributor
 
 
 class ProjectSerializer(ModelSerializer):
@@ -7,3 +7,12 @@ class ProjectSerializer(ModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'
+        
+
+class ContributorSerializer(ModelSerializer):
+
+    class Meta:
+        model = Contributor
+        fields = '__all__'
+    
+
