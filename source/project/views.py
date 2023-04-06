@@ -1,9 +1,7 @@
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView
 from .models import Project
 from .serializers import ProjectSerializer
 
-
-class ProjectList(ListCreateAPIView):
-    
+class ProjectList(ListAPIView, CreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
