@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
-from .models import Project, Contributor, Issue
-from .serializers import ProjectSerializer, ContributorSerializer, IssueSerializer
+from .models import Project, Contributor, Issue, Comment
+from .serializers import ProjectSerializer, ContributorSerializer, IssueSerializer, CommentSerializer
 
 from django.shortcuts import get_object_or_404
 
@@ -34,15 +34,15 @@ class ContributorDelete(ListAPIView, DestroyAPIView):
     
     serializer_class = ContributorSerializer
 
-
-class IssueList(ListAPIView, CreateAPIView):
     
+class IssueList(ListAPIView, CreateAPIView):
+    serializer_class = IssueSerializer
+
     def get_queryset(self):
-        project = get_object_or_404(Project, id=self.kwargs['project_id'])
-        queryset = Issue.objects.filter(project_id=project)
+        project_id = self.kwargs.get('project_id')
+        queryset = Issue.objects.filter(project=project_id)
         return queryset
 
-    serializer_class = IssueSerializer
 
 
 class IssueDetail(RetrieveAPIView, DestroyAPIView, UpdateAPIView):
@@ -52,3 +52,13 @@ class IssueDetail(RetrieveAPIView, DestroyAPIView, UpdateAPIView):
         return queryset
 
     serializer_class = IssueSerializer
+
+
+class CommentList(ListAPIView, CreateAPIView):
+    
+    def get_queryset(self):
+        issue_id = self.kwargs.get('issue_id')
+        queryset = Comment.objects.filter(issue=issue_id)
+        return queryset
+    
+    serializer_class = CommentSerializer
