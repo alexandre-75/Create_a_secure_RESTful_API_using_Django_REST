@@ -62,3 +62,11 @@ class CommentList(ListAPIView, CreateAPIView):
         return queryset
     
     serializer_class = CommentSerializer
+
+class CommentDetail(RetrieveAPIView, DestroyAPIView, UpdateAPIView):
+    
+    def get_queryset(self):
+        queryset = Comment.objects.filter(pk=self.kwargs['pk'])
+        return queryset
+
+    serializer_class = CommentSerializer
