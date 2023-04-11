@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from .models import Project, Contributor, Issue, Comment
 from .serializers import ProjectSerializer, ContributorSerializer, IssueSerializer, CommentSerializer
-from .permissions import ProjectPermissions
+from .permissions import ProjectPermissions, IsContributorList
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -17,7 +17,8 @@ class ProjectList(ListAPIView, CreateAPIView):
 class ProjectDetail(RetrieveAPIView, UpdateAPIView, DestroyAPIView): 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [ProjectPermissions]
+    http_method_names = ['get', 'put', 'delete']
+    permission_classes = [ProjectPermissions, IsAuthenticated]
 
 
 class ContributorList(ListAPIView, CreateAPIView):
@@ -28,6 +29,7 @@ class ContributorList(ListAPIView, CreateAPIView):
         return queryset
     
     serializer_class = ContributorSerializer
+    permission_classes = [ProjectPermissions, IsAuthenticated]
 
 
 class ContributorDelete(ListAPIView, DestroyAPIView):
@@ -37,6 +39,7 @@ class ContributorDelete(ListAPIView, DestroyAPIView):
         return queryset
     
     serializer_class = ContributorSerializer
+    permission_classes = [ProjectPermissions, IsAuthenticated]
 
     
 class IssueList(ListAPIView, CreateAPIView):
@@ -46,6 +49,7 @@ class IssueList(ListAPIView, CreateAPIView):
         project_id = self.kwargs.get('project_id')
         queryset = Issue.objects.filter(project=project_id)
         return queryset
+    permission_classes = [IsAuthenticated, IsContributorList]
 
 
 
@@ -65,6 +69,7 @@ class CommentList(ListAPIView, CreateAPIView):
         queryset = Comment.objects.filter(issue=issue_id)
         return queryset
     
+    permission_classes = [IsAuthenticated, IsContributorList]
     serializer_class = CommentSerializer
 
 class CommentDetail(RetrieveAPIView, DestroyAPIView, UpdateAPIView):

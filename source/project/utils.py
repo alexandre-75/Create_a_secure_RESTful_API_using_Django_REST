@@ -5,6 +5,7 @@ def permission_users(request):
     
     if request.method in permissions.SAFE_METHODS:
         return get_contributor(request)
+    return get_project(request).author_user == request.user
     
 
 def get_contributor(request):
