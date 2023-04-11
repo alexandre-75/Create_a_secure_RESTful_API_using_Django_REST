@@ -1,19 +1,22 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from .models import Project, Contributor, Issue, Comment
 from .serializers import ProjectSerializer, ContributorSerializer, IssueSerializer, CommentSerializer
+from .permissions import ProjectPermissions
 
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 
 
 
 class ProjectList(ListAPIView, CreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    
+    permission_classes =[IsAuthenticated]
     
 class ProjectDetail(RetrieveAPIView, UpdateAPIView, DestroyAPIView): 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated, ProjectPermissions]
 
 
 class ContributorList(ListAPIView, CreateAPIView):
