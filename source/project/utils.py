@@ -19,7 +19,7 @@ def permission_users(request, obj=None):
     if obj:
         return obj.author_user == request.user
     return get_project(request).author_user == request.user
-    
+
 
 def get_contributor(request):
 

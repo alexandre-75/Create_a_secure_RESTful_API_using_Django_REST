@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from .models import Project, Contributor, Issue, Comment
 from .serializers import ProjectSerializer, ContributorSerializer, IssueSerializer, CommentSerializer
-from .permissions import ProjectPermissions, IsContributorList, CommentPermissions
+from .permissions import ProjectPermissions, ContributorPermissions, CommentIssuePermissions
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -94,12 +94,12 @@ class IssueList(ListAPIView, CreateAPIView):
     API endpoint that allows listing and creation of issues for a project.
 
     Inherits from ListAPIView and CreateAPIView.
-    Requires authentication (IsAuthenticated permission) and IsContributorList permission to access.
+    Requires authentication (IsAuthenticated permission) and ContributorPermissions permission to access.
     Uses the IssueSerializer for serialization.
     Returns a queryset of all Issue objects for the specified project.
     """
 
-    permission_classes = [IsAuthenticated, IsContributorList]
+    permission_classes = [IsAuthenticated, ContributorPermissions]
     serializer_class = IssueSerializer
 
     def get_queryset(self):
@@ -114,12 +114,12 @@ class IssueDetail(RetrieveAPIView, DestroyAPIView, UpdateAPIView):
     API endpoint that allows retrieval, update and deletion of an issue.
 
     Inherits from RetrieveAPIView, UpdateAPIView and DestroyAPIView.
-    Requires authentication (IsAuthenticated permission) and CommentPermissions to access.
+    Requires authentication (IsAuthenticated permission) and CommentIssuePermissions to access.
     Uses the IssueSerializer for serialization.
     Returns a queryset of the specified Issue object.
     """
     
-    permission_classes = [CommentPermissions, IsAuthenticated]
+    permission_classes = [CommentIssuePermissions, IsAuthenticated]
     serializer_class = IssueSerializer
     
     def get_queryset(self):
@@ -133,12 +133,12 @@ class CommentList(ListAPIView, CreateAPIView):
     API endpoint that allows listing and creation of comments for an issue.
 
     Inherits from ListAPIView and CreateAPIView.
-    Requires authentication (IsAuthenticated permission) and IsContributorList permission to access.
+    Requires authentication (IsAuthenticated permission) and ContributorPermissions permission to access.
     Uses the CommentSerializer for serialization.
     Returns a queryset of all Comment objects for the specified issue.
     """
 
-    permission_classes = [IsAuthenticated, IsContributorList]
+    permission_classes = [IsAuthenticated, ContributorPermissions]
     serializer_class = CommentSerializer
     
     def get_queryset(self):
@@ -153,12 +153,12 @@ class CommentDetail(RetrieveAPIView, DestroyAPIView, UpdateAPIView):
     API endpoint that allows retrieval, update and deletion of a comment.
 
     Inherits from RetrieveAPIView, UpdateAPIView and DestroyAPIView.
-    Requires authentication (IsAuthenticated permission) and CommentPermissions to access.
+    Requires authentication (IsAuthenticated permission) and CommentIssuePermissions to access.
     Uses the CommentSerializer for serialization.
     Returns a queryset of the specified Comment object.
     """
 
-    permission_classes = [CommentPermissions, IsAuthenticated]
+    permission_classes = [CommentIssuePermissions, IsAuthenticated]
     serializer_class = CommentSerializer
     
     def get_queryset(self):

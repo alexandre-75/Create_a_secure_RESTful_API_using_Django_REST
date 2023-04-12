@@ -24,16 +24,18 @@ from .utils import permission_users, get_contributor
 
 
 class ProjectPermissions(BasePermission):
-    
+
     def has_permission(self, request, view):
         return permission_users(request)
 
-class IsContributorList(BasePermission):
-    
+
+class ContributorPermissions(BasePermission):
+
     def has_permission(self, request, view):
         return get_contributor(request)
-    
-class CommentPermissions(BasePermission):
-    
+
+ 
+class CommentIssuePermissions(BasePermission):
+ 
     def has_object_permission(self, request, view, obj):
         return permission_users(request, obj)
