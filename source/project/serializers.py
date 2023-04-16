@@ -8,21 +8,21 @@ from project.models import Project, Contributor, Issue, Comment
 
 
 class ProjectSerializer(ModelSerializer):
-    
+
     """
     Serializer for the Project model.
 
     Uses the ModelSerializer class provided by Django REST Framework,
     for converting Project objects to JSON and vice versa.
     """
-     
+
     class Meta:
         model = Project
         fields = '__all__'
-        
+
 
 class ContributorSerializer(ModelSerializer):
- 
+
     """
     Serializer for the Contributor model.
 
@@ -33,10 +33,10 @@ class ContributorSerializer(ModelSerializer):
     class Meta:
         model = Contributor
         fields = '__all__'
-    
+
 
 class IssueSerializer(ModelSerializer):
-    
+
     """
     Serializer for the Issue model.
 
@@ -48,9 +48,10 @@ class IssueSerializer(ModelSerializer):
 
         model = Issue
         fields = '__all__'
-        
+
+
 class CommentSerializer(ModelSerializer):
-    
+
     """
     Serializer for the Comment model.
 
@@ -62,4 +63,3 @@ class CommentSerializer(ModelSerializer):
 
         model = Comment
         fields = '__all__'
-

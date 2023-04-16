@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    
+
     """
      A class representing a user in the system.
 

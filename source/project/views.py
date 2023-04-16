@@ -13,12 +13,12 @@ from rest_framework.permissions import IsAuthenticated
     CreateAPIView: this generic view allows to create a new object for a DRF model.
     RetrieveAPIView: This generic view allows retrieving a specific object from a DRF model.
     UpdateAPIView: this generic view allows to update a specific object for a DRF model.
-    DestroyAPIView: This generic view allows to delete a specific object from a DRF model. 
+    DestroyAPIView: This generic view allows to delete a specific object from a DRF model.
 """
 
 
 class ProjectList(ListAPIView, CreateAPIView):
-    
+
     """
     API endpoint that allows listing and creation of projects.
 
@@ -27,14 +27,14 @@ class ProjectList(ListAPIView, CreateAPIView):
     Uses the ProjectSerializer for serialization.
     Returns a queryset of all Project objects in the database.
     """
-    
-    permission_classes =[IsAuthenticated]
+
+    permission_classes = [IsAuthenticated]
     serializer_class = ProjectSerializer
     queryset = Project.objects.all()
-    
- 
+
+
 class ProjectDetail(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
-    
+
     """
     API endpoint that allows retrieval, update and deletion of a project.
 
@@ -43,7 +43,7 @@ class ProjectDetail(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
     Uses the ProjectSerializer for serialization.
     Returns a queryset of the specified Project object.
     """
-    
+
     permission_classes = [ProjectPermissions, IsAuthenticated]
     serializer_class = ProjectSerializer
     queryset = Project.objects.all()
@@ -62,7 +62,7 @@ class ContributorList(ListAPIView, CreateAPIView):
 
     permission_classes = [ProjectPermissions, IsAuthenticated]
     serializer_class = ContributorSerializer
-    
+
     def get_queryset(self):
         project = self.kwargs.get('project_id')
         queryset = Contributor.objects.filter(project_id=project)
@@ -70,7 +70,7 @@ class ContributorList(ListAPIView, CreateAPIView):
 
 
 class ContributorDelete(ListAPIView, DestroyAPIView):
-    
+
     """
     API endpoint that allows deletion of a contributor for a project.
 
@@ -82,12 +82,12 @@ class ContributorDelete(ListAPIView, DestroyAPIView):
 
     permission_classes = [ProjectPermissions, IsAuthenticated]
     serializer_class = ContributorSerializer
-    
+
     def get_queryset(self):
         queryset = Contributor.objects.filter(pk=self.kwargs['pk'])
         return queryset
- 
-  
+
+
 class IssueList(ListAPIView, CreateAPIView):
 
     """
@@ -118,17 +118,17 @@ class IssueDetail(RetrieveAPIView, DestroyAPIView, UpdateAPIView):
     Uses the IssueSerializer for serialization.
     Returns a queryset of the specified Issue object.
     """
-    
+
     permission_classes = [CommentIssuePermissions, IsAuthenticated]
     serializer_class = IssueSerializer
-    
+
     def get_queryset(self):
         queryset = Issue.objects.filter(pk=self.kwargs['pk'])
         return queryset
 
-    
+
 class CommentList(ListAPIView, CreateAPIView):
-    
+
     """
     API endpoint that allows listing and creation of comments for an issue.
 
@@ -140,12 +140,12 @@ class CommentList(ListAPIView, CreateAPIView):
 
     permission_classes = [IsAuthenticated, ContributorPermissions]
     serializer_class = CommentSerializer
-    
+
     def get_queryset(self):
         issue_id = self.kwargs.get('issue_id')
         queryset = Comment.objects.filter(issue=issue_id)
         return queryset
-    
+
 
 class CommentDetail(RetrieveAPIView, DestroyAPIView, UpdateAPIView):
 
@@ -160,7 +160,7 @@ class CommentDetail(RetrieveAPIView, DestroyAPIView, UpdateAPIView):
 
     permission_classes = [CommentIssuePermissions, IsAuthenticated]
     serializer_class = CommentSerializer
-    
+
     def get_queryset(self):
         queryset = Comment.objects.filter(pk=self.kwargs['pk'])
         return queryset

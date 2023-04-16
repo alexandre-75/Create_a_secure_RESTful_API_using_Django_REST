@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny
 
 
 class SignupView(ListAPIView, CreateAPIView):
-    
+
     """
     A view that allows users to sign up by creating new user objects.
     Inherits from ListAPIView and CreateAPIView to enable listing and creating user objects.

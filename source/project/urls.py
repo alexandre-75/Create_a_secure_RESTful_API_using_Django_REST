@@ -15,4 +15,3 @@ urlpatterns = [
     path('<int:project_id>/issues/<int:issue_id>/comments/', CommentList.as_view(), name="project_comment_list"),
     path('<int:project_id>/issues/<int:issue_id>/comments/<int:pk>/', CommentDetail.as_view(), name="project_comment_detail"),
 ]
-

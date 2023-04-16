@@ -7,13 +7,13 @@ from .utils import permission_users, get_contributor
 
     The permission classes provided by Django REST Framework are:
 
-    - BasePermission: 
-            The base class for all permission classes. 
+    - BasePermission:
+            The base class for all permission classes.
             It provides two methods: has_permission and has_object_permission.
     - IsAuthenticated: This permission class allows access only to authenticated users.
     - AllowAny: This permission class allows access to all users, authenticated or not.
 
-    To use a permission class in a view, you add it to the 'permission_classes' attribute of the view. 
+    To use a permission class in a view, you add it to the 'permission_classes' attribute of the view.
     For example:
 
         class MyView(APIView):
@@ -34,8 +34,8 @@ class ContributorPermissions(BasePermission):
     def has_permission(self, request, view):
         return get_contributor(request)
 
- 
+
 class CommentIssuePermissions(BasePermission):
- 
+
     def has_object_permission(self, request, view, obj):
         return permission_users(request, obj)

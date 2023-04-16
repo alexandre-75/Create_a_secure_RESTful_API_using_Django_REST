@@ -4,13 +4,13 @@ from rest_framework.validators import UniqueValidator
 
 
 class SignupSerializer(serializers.ModelSerializer):
-    
+
     """
     Serializes User objects for creating new user accounts.
     Attributes:
         email (EmailField): The user's email address.
         password (CharField): The user's password.
- 
+
     Raises:
         None
     """

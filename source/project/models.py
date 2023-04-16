@@ -1,8 +1,9 @@
 from django.db import models
 from accounts.models import User
 
+
 class Project(models.Model):
-    
+
     """
         Basic model for a project.
 
@@ -35,7 +36,7 @@ class Project(models.Model):
 
 
 class Contributor(models.Model):
-    
+
     """
         Template for a project contributor.
 
@@ -63,13 +64,13 @@ class Contributor(models.Model):
     class Meta:
         ordering = ['id']
         unique_together = ['user_id', 'project_id']
-    
+
     def __str__(self):
         return (f"{self.user_id} contribute to the project : {self.project_id}")
 
 
 class Issue(models.Model):
-    
+
     """
         Template for an issue (problem, task or improvement) in a project.
 
@@ -105,18 +106,18 @@ class Issue(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     status = models.CharField(max_length=4, choices=STATUS)
     author_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_user')
-    assignee_user = models.ForeignKey(User,on_delete=models.CASCADE, default=author_user, related_name='assignee_user')
+    assignee_user = models.ForeignKey(User, on_delete=models.CASCADE, default=author_user, related_name='assignee_user')
     created_datetime = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['created_datetime']
-    
+
     def __str__(self):
         return self.title
 
 
 class Comment(models.Model):
-    
+
     """
         Template for a comment on an issue.
 
