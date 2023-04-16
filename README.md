@@ -83,7 +83,7 @@ _Tested on Windows 10, Python 3.10.6. / Django 4.1.7. / djangorestframework 3.14
 
 - Open your favorite browser and navigate to the ***local development server*** at :
   ```sh
-  http://127.0.0.1:8000/
+  http://127.0.0.1:8000/login/
   ```
   
   ## Use of the program
